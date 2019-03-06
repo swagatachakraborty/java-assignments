@@ -1,4 +1,4 @@
-package com.Section5;
+package com.Section5LoopAndConditioning;
 
 public class LastDigitChecker {
     public static boolean isValid(int num) {

@@ -1,4 +1,4 @@
-package com.Section5;
+package com.Section5LoopAndConditioning;
 
 public class FirstAndLastDigitSum {
     public static int sumFirstAndLastDigit(int number) {

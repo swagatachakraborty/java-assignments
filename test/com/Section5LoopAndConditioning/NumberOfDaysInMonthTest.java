@@ -1,4 +1,4 @@
-package com.Section5;
+package com.Section5LoopAndConditioning;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

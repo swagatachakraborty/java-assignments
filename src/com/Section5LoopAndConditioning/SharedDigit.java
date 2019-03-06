@@ -1,4 +1,4 @@
-package com.Section5;
+package com.Section5LoopAndConditioning;
 
 public class SharedDigit {
     public static boolean hasSharedDigit(int number1, int number2) {
