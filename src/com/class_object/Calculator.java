@@ -1,4 +1,4 @@
-package com.classObject;
+package com.class_object;
 
 public class Calculator {
     private double firstNumber;

@@ -1,4 +1,4 @@
-package com.sortArray;
+package com.sort_array;
 
 public class Main {
     public static void main(String[] args) {

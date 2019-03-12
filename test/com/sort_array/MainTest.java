@@ -1,4 +1,4 @@
-package com.sortArray;
+package com.sort_array;
 
 import org.junit.jupiter.api.Test;
 
