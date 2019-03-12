@@ -1,4 +1,5 @@
 package com.webpages;
 
-public class Displayable {
+public interface Displayable {
+    void display(String content);
 }

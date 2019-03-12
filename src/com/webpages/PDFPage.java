@@ -1,6 +1,6 @@
 package com.webpages;
 
-public class PDFPage implements Page {
+public class PDFPage extends WebPage {
     private String content;
 
     public PDFPage(String content) {

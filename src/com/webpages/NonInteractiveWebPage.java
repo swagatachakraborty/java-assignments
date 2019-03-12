@@ -1,6 +1,6 @@
 package com.webpages;
 
-public class NonInteractiveWebPage extends Console implements Page {
+public class NonInteractiveWebPage extends WebPage {
     private String content;
 
     public NonInteractiveWebPage(String content) {
@@ -12,7 +12,7 @@ public class NonInteractiveWebPage extends Console implements Page {
         return this.content;
     }
 
-    public void Display() {
+    public void display() {
         display(this.content);
     }
 }

@@ -2,18 +2,20 @@ package com.webpages;
 
 public class Main {
     public static void main(String[] args) {
-        Page page = new WebPage("This is interactive web page content");
-        ((WebPage) page).Display();
-        ((WebPage) page).click();
-        System.out.println("Getting the content of interactive web page : " + page.getContent());
+        Console console = new Console();
 
-        page = new NonInteractiveWebPage("This is the content of non-interactive webpage");
-        ((NonInteractiveWebPage) page).Display();
-        System.out.println("Getting the content of non-interactive web page : " + page.getContent());
+        WebPage webPage = new InteractiveWebPage("This is interactive web webPage content");
+        ((InteractiveWebPage) webPage).display();
+        ((InteractiveWebPage) webPage).click();
+        console.display("Getting the content of interactive web webPage : " + webPage.getContent());
+
+        webPage = new NonInteractiveWebPage("This is the content of non-interactive webpage");
+        ((NonInteractiveWebPage) webPage).display();
+        console.display("Getting the content of non-interactive web webPage : " + webPage.getContent());
 
 
-        page = new PDFPage("This is the content of PDF");
+        webPage = new PDFPage("This is the content of PDF");
 
-        System.out.println("Getting the content of non-interactive web page : " + page.getContent());
+        console.display("Getting the content of non-interactive web webPage : " + webPage.getContent());
     }
 }

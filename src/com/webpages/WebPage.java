@@ -1,13 +1,11 @@
 package com.webpages;
 
-public class WebPage extends NonInteractiveWebPage{
-    private String content;
+public abstract class WebPage implements Displayable {
+    abstract String getContent();
 
-    public WebPage(String contents) {
-        super(contents);
+    @Override
+    public void display(String content) {
+        System.out.println(content);
     }
 
-    public void click(){
-        System.out.println("Clicking on interactive web page");
-    }
 }
