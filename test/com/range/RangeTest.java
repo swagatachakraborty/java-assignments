@@ -61,17 +61,17 @@ class AlphabetRangeTest {
     }
 
     @Test
-    void ShouldGiveAllIntegerInTheRange() {
+    void ShouldGiveAllAlphabetInTheRange() {
         assertEquals(all, charRange.getAll());
     }
 
     @Test
-    void ShouldGiveTrueWhenTheIntegerIsWithInRange() {
+    void ShouldGiveTrueWhenTheAlphabetIsWithInRange() {
         assertTrue(charRange.contains('G'));
     }
 
     @Test
-    void ShouldGiveFalseWhenTheIntegerIsWithInRange() {
+    void ShouldGiveFalseWhenTheAlphabetIsWithInRange() {
         assertFalse(charRange.contains('J'));
         assertFalse(charRange.contains('D'));
     }
