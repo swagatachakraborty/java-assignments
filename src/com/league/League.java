@@ -42,8 +42,8 @@ public class League<T extends Team> {
 //            for (int i=1; i<this.teams.size(); i++) {
 //                if(team.compare(teams.get(i)) < 0) {
 //                    T temp = teams.get(i);
-//                    this.teams.set(i, team);
-//                    this.teams.set(i-1, team);
+//                    this.teams.com.set(i, team);
+//                    this.teams.com.set(i-1, team);
 //                }
 //            }
 //        }
