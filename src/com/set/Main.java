@@ -16,7 +16,7 @@ public class Main {
         set2.add(5);
         set2.add(6);
 
-        SetOperation<Integer> setContainer = new SetOperation<Integer>(set1);
+        Set<Integer> setContainer = new Set<Integer>(set1);
 
         System.out.println(setContainer.union(set2));
         System.out.println(setContainer.intersection(set2));

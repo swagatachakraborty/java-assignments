@@ -2,10 +2,10 @@ package com.set;
 
 import java.util.HashSet;
 
-public class SetOperation<T> {
+public class Set<T> {
     private HashSet<T> set;
 
-    public SetOperation(HashSet<T> set) {
+    public Set(HashSet<T> set) {
         this.set = new HashSet<>(set);
     }
 
