@@ -9,10 +9,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryTest {
-    private Set<Book> books;
     private Library library;
     private Library.Librarian librarian;
-    private Book sandMan, elevenMinutes, fiveLittlePics, adiParva;
+    private Book sandMan, elevenMinutes, fiveLittlePics;
     private Reader  reader1;
 
 
@@ -21,14 +20,11 @@ class LibraryTest {
         sandMan = new Book("Sand Man");
         elevenMinutes = new Book("Eleven Minutes");
         fiveLittlePics = new Book("Five Little Pics");
-        adiParva = new Book("Adi Parva");
 
-
-        books = new HashSet<>();
+        Set<Book> books = new HashSet<>();
         books.add(sandMan);
         books.add(elevenMinutes);
         books.add(fiveLittlePics);
-        books.add(adiParva);
         library = new Library(books);
 
         librarian = library.getLibrarian();
@@ -64,7 +60,7 @@ class LibraryTest {
     }
 
     @Test
-    void addBookToLibraryShouldAddTheBookToLibraryAndIncreaseTheAvailabilityOfTheBook() {
+    void addBookToLibrary_ShouldAddTheBookToLibraryAndIncreaseTheAvailabilityOfTheBook() {
         Book newBook = new Book("Objective Arithmetic");
         assertEquals(1,librarian.addBookToLibrary(newBook));
         assertEquals(2,librarian.addBookToLibrary(newBook));
@@ -146,9 +142,15 @@ class LibraryTest {
     }
 
     @Test
-    void lendBook_ShouldRegisterTheBorrowerOfTheBook() {
+    void lendBook_ShouldRegisterTheBorrowerOfTheBookToBookRegister() {
         librarian.lendBook("Sand Man", reader1);
         assertTrue(librarian.getReadersBy(sandMan).contains(reader1));
+    }
+
+    @Test
+    void lendBook_ShouldRegisterTheBookToTheReaderRegister() {
+        librarian.lendBook("Sand Man", reader1);
+        assertTrue(librarian.getBorrowedBooksBy(reader1).contains(sandMan));
     }
 
     @Test
@@ -157,7 +159,7 @@ class LibraryTest {
     }
 
     @Test
-    void removeBook_ShouldReturnFalseIfLibrarianTriesToRemoveBookThatisNotBelongsToTheLibrary() {
+    void removeBook_ShouldReturnFalseIfLibrarianTriesToRemoveBookThatIsNotBelongsToTheLibrary() {
         assertFalse(librarian.removeBook(new Book("Wings Of Fire")));
     }
 
@@ -176,6 +178,20 @@ class LibraryTest {
     void reAssignReturnedBook_ShouldReturnTrueAndAddReadersReturnedBookBackToTheLibraryForValidReaderAndBooks() {
         librarian.lendBook("Sand Man", reader1);
         assertTrue(librarian.reassignReturnedBook(sandMan, reader1));
+    }
+
+    @Test
+    void reAssignReturnedBook_ShouldRemoveTheBorrowerFromTheBookRegister() {
+        librarian.lendBook("Sand Man", reader1);
+        librarian.reassignReturnedBook(sandMan, reader1);
+        assertFalse(librarian.getReadersBy(sandMan).contains(reader1));
+    }
+
+    @Test
+    void reAssignReturnedBook_ShouldRemoveTheBookFromTheReaderRegister() {
+        librarian.lendBook("Sand Man", reader1);
+        librarian.reassignReturnedBook(sandMan, reader1);
+        assertFalse(librarian.getBorrowedBooksBy(reader1).contains(sandMan));
     }
 
     @Test

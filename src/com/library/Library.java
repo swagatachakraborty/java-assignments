@@ -1,32 +1,18 @@
 package com.library;
-/* library
-    Has got a lot of books (This could be a lot (millions of) books) ->DONE
-    Has got a readers who read books in the library ->DONE
-
-    As a reader I should be able to search a book in the library by its name ->DONE
-    As a reader I should be able to borrow a book from library ->DONE
-    As a reader I should be able to check if I have a book already borrowed
-    As a reader I should be able to return a borrowed books ->DONE
-
-    As a librarian I should be able add a new book into library ->DONE
-    As a librarian I should be able to check who has borrowed a specific book ->DONE
-    As a librarian I should be able to check books borrowed by a reader ->DONE
-    As a librarian I should be able to remove a book from library ->DONE
-    As a librarian I should be able to search if a book was removed in the past, so it can be bought again if necessary ->DONE
-*/
-
 import java.util.*;
 
 public class Library {
     private Map<Book, Integer> booksAvailable;
     private HashSet<Reader> readers;
-    private Map<Book, HashSet<Reader>> register;
+    private Map<Book, HashSet<Reader>> bookRegister;
+    private Map<Reader, HashSet<Book>> readerRegister;
     private HashSet<Book> removedBooks;
     private Librarian librarian;
     private Integer latestMemberId;
 
     public Library() {
-        this.register = new HashMap<>();
+        this.bookRegister = new HashMap<>();
+        this.readerRegister = new HashMap<>();
         this.readers = new HashSet<>();
         this.removedBooks = new HashSet<>();
         this.librarian = new Librarian();
@@ -38,7 +24,7 @@ public class Library {
         this();
         for (Book book : books) {
             this.booksAvailable.put(book, 1);
-            this.register.put(book, new HashSet<>());
+            this.bookRegister.put(book, new HashSet<>());
         }
     }
 
@@ -55,6 +41,7 @@ public class Library {
         this.readers.add(reader);
         reader.setReaderId(this.latestMemberId);
         this.latestMemberId++;
+        readerRegister.put(reader, new HashSet<>());
         return true;
     }
 
@@ -80,7 +67,7 @@ public class Library {
         return searchedBook != null && this.booksAvailable.get(searchedBook) > 0;
     }
 
-    private boolean isRegister(Reader reader) {
+    private boolean isRegistered(Reader reader) {
         return this.readers.contains(reader);
     }
 
@@ -89,12 +76,12 @@ public class Library {
             booksAvailable.putIfAbsent(book, 0);
             Integer availability = booksAvailable.get(book);
             booksAvailable.put(book, availability + 1);
-            register.put(book, new HashSet<>());
+            bookRegister.put(book, new HashSet<>());
             return availability + 1;
         }
 
         public boolean lendBook(String bookName, Reader reader) {
-            if(!isRegister(reader) || !isAvailable(bookName)) {
+            if(!isRegistered(reader) || !isAvailable(bookName)) {
                 return false;
             }
 
@@ -102,25 +89,18 @@ public class Library {
             Integer availability = booksAvailable.get(book);
             booksAvailable.put(book, availability - 1);
 
-            HashSet<Reader> readersForBook = register.get(book);
-            readersForBook.add(reader);
+            bookRegister.get(book).add(reader);
+            readerRegister.get(reader).add(book);
             reader.addBook(book);
             return true;
         }
 
         public Set<Reader> getReadersBy(Book book) {
-            return register.get(book);
+            return bookRegister.get(book);
         }
 
         public Set<Book> getBorrowedBooksBy(Reader reader) {
-            Set<Book> booksOfReader = new HashSet<>();
-
-            for (Book book : register.keySet()) {
-                if(register.get(book).contains(reader)) {
-                    booksOfReader.add(book);
-                }
-            }
-            return booksOfReader;
+           return readerRegister.get(reader);
         }
 
         public boolean removeBook(Book book) {
@@ -129,7 +109,7 @@ public class Library {
             }
 
             booksAvailable.remove(book);
-            register.remove(book);
+            bookRegister.remove(book);
             removedBooks.add(book);
             return true;
         }
@@ -143,8 +123,8 @@ public class Library {
                 return false;
             }
 
-            HashSet<Reader> readerOfBook = register.get(book);
-            readerOfBook.remove(reader);
+            bookRegister.get(book).remove(reader);
+            readerRegister.get(reader).remove(book);
             this.addBookToLibrary(book);
             return true;
         }
